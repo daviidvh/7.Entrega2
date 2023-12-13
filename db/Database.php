@@ -38,75 +38,107 @@
          * Funcion de prueba para iniciar una tabla con contenido.
          */
         public static function iniciarTablas($db) : void{
+   //         /**
+   //          * TABLA FLOTAS
+   //          */
+   //         $delete = "
+   //             DROP TABLE IF EXISTS flota;
+
+   //         ";
+
+   //         $db->exec($delete);
+
+   //         $query = "
+   //             CREATE TABLE IF NOT EXISTS flota(
+   //                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+   //                 marca TEXT,
+   //                 modelo TEXT,
+   //                 matricula TEXT,
+   //                 capacidad INTEGER,
+   //                 tipo TEXT,
+   //                 precio FLOAT,
+   //                 reservado TEXT CHECK (reservado IN ('Si', 'No'))
+   //             )
+   //         ";
+
+   //         $db->exec($query);
+
+   //         $insert = "
+   //                 INSERT INTO flota (marca, modelo, matricula, capacidad, tipo, precio, reservado) VALUES 
+   //                 ('Toyota', 'Corrolla', '2598MBR', 5, 'automatico', 38.56,'Si'),
+   //                 ('BMW', 'X5', '5876JHB', 5, 'manual', 70.99,'No'),
+   //                 ('Cupra', 'Formentor', '4525KBT', 5, 'automatico', 50.55,'Si'),
+   //                 ('Mercedes-Benz', 'Clase V', '2359MBN', 7, 'automatico', 120.99,'No');
+
+   //         ";
+
+   //     $db->query($insert);
+
+   //     /**
+   //      * TABLAS USUARIOS
+   //      */
+   //     $delete="
+   //         DROP TABLE IF EXISTS users;
+   //     ";
+   //     $db->exec($delete);
+
+   //     $query = "
+   //     CREATE TABLE IF NOT EXISTS users(
+   //         id INTEGER PRIMARY KEY AUTOINCREMENT,
+   //         email TEXT,
+   //         password TEXT,
+   //         rol_id INTEGER
+   //     )
+   // ";
+
+   //     $db->exec($query);
+
+   //     $query = "
+   //         CREATE TABLE IF NOT EXISTS rol(
+   //             id INTEGER PRIMARY KEY AUTOINCREMENT,
+   //             nombre TEXT
+   //         )
+   //     ";
+   //
+   //      $db->exec($query);
+
+   //      $query = "
+   //          INSERT INTO rol (nombre) VALUES ('admin'),('usuario');
+   //      ";
+   //
+   //     $db->exec($query);
+
+
+
+
             /**
-             * TABLA FLOTAS
+             * Tabla alquilados
              */
             $delete = "
-                DROP TABLE IF EXISTS flota;
+            DROP TABLE IF EXISTS alquilados;
 
-            ";
+              ";
 
-            $db->exec($delete);
-
+          $db->exec($delete);
             $query = "
-                CREATE TABLE IF NOT EXISTS flota(
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                CREATE TABLE IF NOT EXISTS alquilados(
+                    id_alquiler INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id INTEGER,
                     marca TEXT,
                     modelo TEXT,
                     matricula TEXT,
                     capacidad INTEGER,
                     tipo TEXT,
-                    precio FLOAT,
-                    reservado TEXT CHECK (reservado IN ('Si', 'No'))
+                    dias INTEGER,
+                    precio_total FLOAT,
+                    email TEXT,
+                    reservado TEXT
+
                 )
             ";
 
             $db->exec($query);
 
-            $insert = "
-                    INSERT INTO flota (marca, modelo, matricula, capacidad, tipo, precio, reservado) VALUES 
-                    ('Toyota', 'Corrolla', '2598MBR', 5, 'automatico', 38.56,'Si'),
-                    ('BMW', 'X5', '5876JHB', 5, 'manual', 70.99,'No'),
-                    ('Cupra', 'Formentor', '4525KBT', 5, 'automatico', 50.55,'Si'),
-                    ('Mercedes-Benz', 'Clase V', '2359MBN', 7, 'automatico', 120.99,'No');
-
-            ";
-
-            $db->query($insert);
-
-            /**
-             * TABLAS USUARIOS
-             */
-            $delete="
-                DROP TABLE IF EXISTS users;
-            ";
-            $db->exec($delete);
-
-            $query = "
-            CREATE TABLE IF NOT EXISTS users(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                email TEXT,
-                password TEXT,
-                rol_id INTEGER
-            )
-        ";
-
-            $db->exec($query);
-
-            $query = "
-                CREATE TABLE IF NOT EXISTS rol(
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nombre TEXT
-                )
-            ";
-                
-             $db->exec($query);
-
-             $query = "
-                 INSERT INTO rol (nombre) VALUES ('admin'),('usuario');
-             ";
-                
-            $db->exec($query);
         }
 
         public static function delete($db, $id) : int{

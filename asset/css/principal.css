@@ -1,0 +1,45 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-size: 36px;
+    color: #333;
+    margin: 0;
+}
+
+nav {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 0 10px;
+    background-color: #470050;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #000000;
+    color: #fff;}
+
+main {
+    padding: 20px;
+}

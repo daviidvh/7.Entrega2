@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AlquiCar</title>
+    <link rel="stylesheet" href="asset/css/createEdit.css">
   </head>
   <body>
     <main>
-      <form method="post" action="?controller=flota&function=save">
+      <form method="post" action="save">
         <label for="marca">Marca</label>
         <input type="text" id="marca" name="marca" /><br />
         <label for="modelo">Modelo</label>

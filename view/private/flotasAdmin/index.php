@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlquiCar</title>
-    <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="stylesheet" href="asset/css/flota.css">
 </head>
 
 <body>
     <main>
-        <a href="?controller=auth&function=logout">Cerrar Sesion</a>
-        <a href="?controller=flota&function=create">Crear coche</a>
+        <h1>AlquiCar</h1>
+        <a href="logout">Cerrar Sesion</a>
+        <a href="create">Crear Coche</a>
+        <a href="alquilados">Ver Alquilados</a>
         <table>
             <thead>
                 <tr>
@@ -23,15 +25,11 @@
                     <th>Tipo</th>
                     <th>Precio</th>
                     <th>Reservado</th>
-
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                         $flota = new Flota();
-
-                         $flota = $flota->findAll()->fetchAll();
                          foreach ($flota as $key => $value) {
                              echo '<tr>';
                              echo '<td>' . $value['id'] . '</td>';
@@ -42,10 +40,9 @@
                              echo '<td>' . $value['tipo'] . '</td>';
                              echo '<td>' . $value['precio'] . '</td>';
                              echo '<td>' . $value['reservado'] . '</td>';
-
                              echo '<td>
-                     <a href="?controller=flota&function=edit&id=' . $value['id'] . '">Editar</a>
-                     <a href="?controller=flota&function=destroy&id=' . $value['id'] . '">Eliminar</a>
+                             <a href="edit-coche?id=' . $value['id'] . '" class="edit-button">Editar</a>
+                             <a href="destroy-coche?id=' . $value['id'] . '" class="delete-button">Eliminar</a>
                  </td>';
                              echo '</tr>';
                 }     ?>

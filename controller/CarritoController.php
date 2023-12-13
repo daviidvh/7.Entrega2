@@ -1,23 +1,19 @@
 <?php 
 
-require_once 'Controller.php';
+require_once 'controller/Controller.php';
 
-class CarritoController implements Controller{
+class CarritoController{
     public static function index(){
         include 'view/private/carrito/index.php';
 
     }
 
-    # Funcion abstracta create que muestra un formulario para agregar un elemento
     public static function create(){
-        var_dump($_POST['dias']);
-        var_dump($_SESSION['user']);
-        
-        if(isset($_POST['dias'],$_GET['id'])){
+        if (isset($_POST['dias'], $_GET['id'])) {
             $coche = new Flota();
             $coche = $coche->findById($_GET['id'])->fetchAll();
     
-            foreach($coche as $key => $value){
+            foreach ($coche as $value) {
                 $id = $value['id'];
                 $marca = $value['marca'];
                 $modelo = $value['modelo'];
@@ -26,50 +22,49 @@ class CarritoController implements Controller{
                 $precio = $value['precio'];
             }
     
-            if (!isset($_SESSION['user']['carrito'])) {
-                $_SESSION['user']['carrito'] = array();
+            if (!isset($_SESSION['carrito']['user'])) {
+                $_SESSION['carrito']['user'] = array();
             }
     
-            var_dump($_SESSION['user']['carrito']);
-         
-            // Obtén el próximo índice numérico disponible en el carrito
-            $nextIndex = count($_SESSION['user']['carrito']) + 1;
+            // Extraemos los id de los coches en una columna 
+            $cocheExistente = array_column($_SESSION['carrito']['user'], 'id');
+            //Comprobamos que no existe el id en la columna de coches existentes
+            if (!in_array($id, $cocheExistente)) {
+                // Obtén el próximo índice numérico disponible en el carrito
+                $nextIndex = count($_SESSION['carrito']['user']) + 1;
     
-            $_SESSION['user']['carrito'][$nextIndex] = [
-                'id' => $id,
-                'marca' => $marca,
-                'modelo' => $modelo,
-                'capacidad' => $capacidad,
-                'tipo' => $tipo,
-                'precio' => $precio,
-                'dias' => $_POST['dias'],
-                'precio_total' => $precio * $_POST['dias'],
-            ];
+                $_SESSION['carrito']['user'][$nextIndex] = [
+                    'id' => $id,
+                    'marca' => $marca,
+                    'modelo' => $modelo,
+                    'capacidad' => $capacidad,
+                    'tipo' => $tipo,
+                    'precio' => $precio,
+                    'dias' => $_POST['dias'],
+                    'precio_total' => $precio * $_POST['dias'],
+                ];
+            }else{
+                echo("Coche ya añadido");
+            }
         }
     
         include 'view/private/carrito/index.php';
     }
     
-
-    # Funcion abstracta save que inserta en la BD los elementos recogidos del formulario
-    public static function save(){
-
-    }
-
-    # Funcion abstracta edit que recibe un $id de un elemento y muestra un formulario con su datos
-    public static function edit($id){
-
-    }
-
-    # Funcion abstracta update que recibe un $id de un elemento y actualiza su contenido
-    public static function update($id){
-
-    }
-
-    # Function abstracta destroy que recibe un $id de un elemento y lo elimina de la BD
     public static function destroy($id){
 
+        $id= $_GET['id'];
+        foreach ($_SESSION['carrito']['user'] as $key => $value) {
+            if($value['id'] == $id){
+                unset($_SESSION['carrito']['user'][$key]);
+            }
+        }
+
+        include 'view/private/carrito/index.php';
+
+
     }
+
 }
 
 ?>

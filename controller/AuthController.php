@@ -1,5 +1,4 @@
 <?php
-require_once 'Controller.php';
 require_once 'model/User.php';
 
 class AuthController
@@ -7,6 +6,9 @@ class AuthController
     public static function login()
     {
         include 'view/auth/login.php';
+        if(isset($_SESSION['mensaje'])) {
+            unset($_SESSION['mensaje']);
+        }
         /**
          * Para hacer la primera insercion
          */
@@ -18,21 +20,42 @@ class AuthController
     public static function register()
     {
         include 'view/auth/register.php';
+        if(isset($_SESSION['mensaje'])) {
+            unset($_SESSION['mensaje']);
+        }
     }
 
+    /**
+     * Vista ADMINISTRADOR todos
+     */
     public static function flota(){
+        $flota = new Flota();
+        $flota = $flota->findAll()->fetchAll();
+
+
         if(isset($_SESSION['user']) && $_SESSION['user']['rol_id'] == 1){
             include 'view/private/flotasAdmin/index.php';
         }else if(!isset($_SESSION['user'])){
-            header('Location: ?controller=auth&function=login');
+            $_SESSION['mensaje'] = 'No tienes permisos para acceder';
+            header('Location: login');
+            if(isset($_SESSION['mensaje'])) {
+                unset($_SESSION['mensaje']);
+            }
         }    
     }
   
+    /**
+     * Vista USUARIO coches no alquilados 
+     */
     public static function home(){
+        $flota = new Flota();
+
+        $flota = $flota->findNoReservados()->fetchAll();
+
         if(isset($_SESSION['user']) && $_SESSION['user']['rol_id'] == 2){
             include 'view/private/flotasUser/index.php';
         }else if(!isset($_SESSION['user'])){
-            header('Location: ?controller=auth&function=login');
+            header('Location: login');
         }    
     }
 
@@ -52,19 +75,19 @@ class AuthController
             $_SESSION['user'] = $user_log;
             switch($user_log['rol_id']){
                 case 1:
-                    header('Location: ?controller=auth&function=flota');
+                    header('Location: flota');
                     break;
                 case 2:
-                    header('Location: ?controller=auth&function=home');
+                    header('Location: home');
                     break;
                 default:
                     # En este caso no debería entrar nunca (teoricamente)
-                    header('Location: ?controller=auth&function=login');
+                    header('Location: login');
                     break;
             }
         } else {
-            echo '<script language="javascript">alert("Error Usuario no encontrado o contraseña incorrecta");</script>';
-            header('Location: ?controller=auth&function=login');
+            $_SESSION['mensaje'] = 'Error de credenciales. No son correctas';
+            header('Location: login');
         }
     }
 
@@ -82,19 +105,23 @@ class AuthController
                 'password' => $password
             );
             $user->store($datos);
-            # ¿Que pasa si store no se ejecuta correctamente y no muestra error?
 
-            header('Location: ?controller=auth&function=login');
+            header('Location: login');
         } else {
-            $error = 'No coinciden';
-            header('Location: ?controller=auth&function=register');
+            $_SESSION['mensaje'] = 'No coinciden';
+            header('Location: register');
+
         }
     }
 
-    public static function logout(){
-        if(session_id()){
-            session_destroy();
-        }
-        header('Location: ?controller=auth&function=login');   
-    }
+     public static function logout(){
+         if(isset($_SESSION['user'])){
+
+             //session_destroy();
+             unset($_SESSION['user']);
+         }
+         header('Location: login');   
+     }
+
+
 }

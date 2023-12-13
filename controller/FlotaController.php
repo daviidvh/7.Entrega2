@@ -1,5 +1,5 @@
 <?php
-require_once 'Controller.php';
+require_once 'controller/Controller.php';
 require_once 'model/Flota.php';
 
 class FlotaController implements Controller
@@ -58,35 +58,31 @@ class FlotaController implements Controller
       $flota = new Flota();
       $flota->store($datos);
 
-      header('Location: index.php?controller=auth&function=flota');
+      header('Location: flota');
    }
 
-   # Funcion abstracta edit que recibe un $id de un elemento y muestra un formulario con su datos
    public static function edit($id)
    {
+      $id = $_GET['id'];
+      $flota = new Flota;
+      $flota = $flota->findById($id)->fetchAll();
       require 'view/private/flotasAdmin/edit.php';
    }
 
-   # Funcion abstracta update que recibe un $id de un elemento y actualiza su contenido
    public static function update($id)
    {
+      $id= $_GET['id'];
       $flota = new Flota();
       $flota->updateById($id);
-      header('Location: ?controller=auth&function=flota');
+      header('Location: flota');
    }
 
-   # Function abstracta destroy que recibe un $id de un elemento y lo elimina de la BD
    public static function destroy($id)
    {
-      /**
-       * 1. Recoger el $id.
-       * 2. Crear objeto User.
-       * 3. Invocar la funcion destroyById llevandole el $id.
-       * 4. Cambiar cabecera para ir al index
-       */
+      $id= $_GET['id'];
       $flota = new Flota();
       $flota->destroyById($id);
-      header('Location: ?controller=auth&function=flota');
+      header('Location: flota');
    }
 
 
