@@ -6,6 +6,7 @@ class AuthController
     public static function login()
     {
         include 'view/auth/login.php';
+       
         if(isset($_SESSION['mensaje'])) {
             unset($_SESSION['mensaje']);
         }
@@ -61,7 +62,6 @@ class AuthController
 
     public static function doLogin()
     {
-
         // Recogemos el email y la password
 
         $email = $_POST['email'];

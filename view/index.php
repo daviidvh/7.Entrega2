@@ -10,6 +10,7 @@
     <nav></nav>
     <header>
         <h1>Bienvenido a Alquicar</h1>
+     
         <a href="login" class="nav-button">Login</a>
         <a href="register" class="nav-button">Registro</a>
 

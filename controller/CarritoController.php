@@ -9,6 +9,7 @@ class CarritoController{
     }
 
     public static function create(){
+        $idUser=$_SESSION['user']['id'];
         if (isset($_POST['dias'], $_GET['id'])) {
             $coche = new Flota();
             $coche = $coche->findById($_GET['id'])->fetchAll();
@@ -22,18 +23,18 @@ class CarritoController{
                 $precio = $value['precio'];
             }
     
-            if (!isset($_SESSION['carrito']['user'])) {
-                $_SESSION['carrito']['user'] = array();
+            if (!isset($_SESSION['carrito'][$idUser])) {
+                $_SESSION['carrito'][$idUser] = array();
             }
     
             // Extraemos los id de los coches en una columna 
-            $cocheExistente = array_column($_SESSION['carrito']['user'], 'id');
+            $cocheExistente = array_column($_SESSION['carrito'][$idUser], 'id');
             //Comprobamos que no existe el id en la columna de coches existentes
             if (!in_array($id, $cocheExistente)) {
                 // Obtén el próximo índice numérico disponible en el carrito
-                $nextIndex = count($_SESSION['carrito']['user']) + 1;
+                $nextIndex = count($_SESSION['carrito'][$idUser]) + 1;
     
-                $_SESSION['carrito']['user'][$nextIndex] = [
+                $_SESSION['carrito'][$idUser][$nextIndex] = [
                     'id' => $id,
                     'marca' => $marca,
                     'modelo' => $modelo,
@@ -54,9 +55,11 @@ class CarritoController{
     public static function destroy($id){
 
         $id= $_GET['id'];
-        foreach ($_SESSION['carrito']['user'] as $key => $value) {
+        $idUser=$_SESSION['user']['id'];
+
+        foreach ($_SESSION['carrito'][$idUser] as $key => $value) {
             if($value['id'] == $id){
-                unset($_SESSION['carrito']['user'][$key]);
+                unset($_SESSION['carrito'][$idUser][$key]);
             }
         }
 

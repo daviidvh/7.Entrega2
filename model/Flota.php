@@ -198,7 +198,7 @@ class Flota implements Model
     }
 
 
-    public function updateReservaById($id){
+    public function updateReservaById($id) : void{
         $db = Database::conectar();
         $query = "UPDATE flota SET reservado = 'Si' WHERE id = $id";
         $result = $db->exec($query);

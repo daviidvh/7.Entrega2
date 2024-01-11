@@ -30,11 +30,11 @@
             </thead>
             <tbody>
                 <?php
-
-                if(!isset($_SESSION['carrito']['user'])){
+                $idUser=$_SESSION['user']['id'];
+                if(!isset($_SESSION['carrito'][$idUser])){
                     echo("Carrito vacio");
                 }else{
-                foreach ($_SESSION['carrito']['user'] as $key => $value) {
+                foreach ($_SESSION['carrito'][$idUser] as $key => $value) {
                     echo '<tr>';
                     echo '<td>' . $value['id'] . '</td>';
                     echo '<td>' . $value['marca'] . '</td>';
