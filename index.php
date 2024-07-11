@@ -7,8 +7,19 @@ require_once 'controller/CarritoController.php';
 require_once 'controller/AlquilerController.php';
 require_once 'Router.php';
 
-  session_start();
+session_start();
 
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Ahora las variables de entorno están disponibles para usar
+$db_host = getenv('DB_HOST');
+$db_port = getenv('DB_PORT');
+$db_name = getenv('DB_NAME');
+$db_user = getenv('DB_USER');
+$db_pass = getenv('DB_PASS');
      
 
 $route = new Router();
