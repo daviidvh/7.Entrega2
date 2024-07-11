@@ -94,11 +94,10 @@ class User implements Model{
 
     public function store($datos){
         $query = "INSERT INTO users (".implode(",",array_keys($datos)).", rol_id) VALUES ('".implode("','",array_values($datos))."', 2)";
-
         # Conectar a la base de datos, ejecutar y desconectar.
-        $db = Database::conectar();
-        $db->exec($query);
-        $db = Database::desconectar();
+         $db = Database::conectar();
+         $db->exec($query);
+         $db = Database::desconectar();
     }
 
     public function findByEmail($email){

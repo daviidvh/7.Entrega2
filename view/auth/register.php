@@ -27,7 +27,7 @@
       </div>
       <div class="form-group">
         <label for="password">Comprobacion contraseña:</label>
-        <input type="password" name="password-verify" id="password" required>
+        <input type="password" name="password-verify" id="password-verify " required>
       </div>
       <div class="form-group">
         <button type="submit" id="login-button">Registrar</button>
@@ -35,6 +35,5 @@
     </form>
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>

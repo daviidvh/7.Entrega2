@@ -13,9 +13,9 @@ class AuthController
         /**
          * Para hacer la primera insercion
          */
-        //$db= Database::conectar();
+        // $db= Database::conectar();
         //var_dump("Conectado");
-        //Database::iniciarTablas($db);
+        // Database::iniciarTablas($db);
     }
 
     public static function register()
@@ -93,17 +93,17 @@ class AuthController
 
     public static function doRegister()
     {
-
         if ($_POST['password'] === $_POST['password-verify']) {
             $email = $_POST['email'];
             $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cont' => 4]);
 
-
             $user = new User();
+            
             $datos = array(
                 'email' => $email,
                 'password' => $password
             );
+
             $user->store($datos);
 
             header('Location: login');
