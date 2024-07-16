@@ -13,8 +13,8 @@ class AuthController
         /**
          * Para hacer la primera insercion
          */
-        // $db= Database::conectar();
-        //var_dump("Conectado");
+         $db= Database::conectar();
+        var_dump("Conectado");
         // Database::iniciarTablas($db);
     }
 
